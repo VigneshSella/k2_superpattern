@@ -1,9 +1,10 @@
-# %%
 from __future__ import generators
+import numpy as np
 import random
 
 
 def KnuthMorrisPratt(text, pattern):
+
     '''Yields all starting positions of copies of the pattern in the text.
 Calling conventions are similar to string.find, but its arguments can be
 lists or iterators, not just strings, it returns all matches, not just
@@ -27,26 +28,22 @@ the match that caused the yield.'''
     matchLen = 0
     for c in text:
         while matchLen == len(pattern) or \
-                matchLen >= 0 and pattern[matchLen] != c:
+              matchLen >= 0 and pattern[matchLen] != c:
             startPos += shifts[matchLen]
             matchLen -= shifts[matchLen]
         matchLen += 1
         if matchLen == len(pattern):
             yield startPos
-
-
-names = ["Zeeshan", "Vignesh", "Sandeep", "Kevin", "Kazim", "Ali", "Aaron", "Hassan"]
-order = ["Zeeshan", "Vignesh", "Sandeep", "Kevin", "Kazim", "Ali", "Aaron", "Hassan"]
+            
+names = ["Hassan","Sandeep","Kevin","Kazim","Ali","Aaron", "Ogi", "Zeeshan", "Vignesh"]
+order = ["Hassan"] + random.sample(names[1:],len(names)-1)
+# print(order)
 for i in range(100):
     for i in range(len(names)):
         s = 0
         k = 0
-        for s in KnuthMorrisPratt(order, [order[-1], names[i]]):
-            s = 1
-        # and order[-4] != names[i]:
-        if order[-1] != names[i] and order[-2] != names[i] and order[-3] != names[i]:
+        for s in KnuthMorrisPratt(order, [order[-1],names[i]]): s=1
+        if order[-1] != names[i] and order[-2] != names[i] and order[-3] != names[i]: #and order[-4] != names[i]:
             if s != 1 and k != 1:
                 order.append(names[i])
-print(len(order), ' Names')
-for ele in order:
-    print(ele)
+print(order, len(order))
