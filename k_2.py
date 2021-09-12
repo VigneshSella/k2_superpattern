@@ -36,14 +36,19 @@ the match that caused the yield.'''
             yield startPos
             
 names = ["Hassan","Sandeep","Kevin","Kazim","Ali","Aaron", "Ogi", "Zeeshan", "Vignesh"]
-order = ["Hassan"] + random.sample(names[1:],len(names)-1)
-# print(order)
-for i in range(100):
-    for i in range(len(names)):
-        s = 0
-        k = 0
-        for s in KnuthMorrisPratt(order, [order[-1],names[i]]): s=1
-        if order[-1] != names[i] and order[-2] != names[i] and order[-3] != names[i]: #and order[-4] != names[i]:
-            if s != 1 and k != 1:
-                order.append(names[i])
-print(order, len(order))
+max_size = 0
+final_order = []
+for _ in range(10):
+    order = ["Hassan"] + random.sample(names[1:],len(names)-1)
+    for __ in range(100):
+        for i in range(len(names)):
+            s = 0
+            k = 0
+            for s in KnuthMorrisPratt(order, [order[-1],names[i]]): s=1
+            if order[-1] != names[i] and order[-2] != names[i] and order[-3] != names[i]: #and order[-4] != names[i]:
+                if s != 1 and k != 1:
+                    order.append(names[i])
+    if len(order) > max_size:
+        max_size = len(order)
+        final_order = order
+print(final_order, len(final_order))
