@@ -51,4 +51,5 @@ for _ in range(10):
     if len(order) > max_size:
         max_size = len(order)
         final_order = order
-print(final_order, len(final_order))
+print(*final_order, sep='\n')
+print('Length = {}'.format(len(final_order)))
